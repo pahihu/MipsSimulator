@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><!-- gfa Home Page --><!-- (c) 1995-1997 George Fankhauser, Computer Engineering and Network --><!-- Laboratory, ETH Zurich --><!-- --><!-- Thanks for examining our code :-) --><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="MipsSim_files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app39.us.archive.org';v.server_ms=104;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="MipsSim_files/ait-client-rewrite.js" charset="utf-8"></script>
+<script type="text/javascript">
+WB_wombat_Init("http://web.archive.org/web", "20041012105224", "www.tik.ee.ethz.ch:80");
+</script>
+<script type="text/javascript" src="MipsSim_files/wbhack.js" charset="utf-8"></script>
+<script type="text/javascript">
+__wbhack.init('http://web.archive.org/web');
+</script>
+<link rel="stylesheet" type="text/css" href="MipsSim_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="MipsSim_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+	<title>
+		A MIPS R3000 Simulator in Java
+	</title>
+	</head><body bgcolor="ffffff" background="MipsSim_files/background.gif"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script type="text/javascript" src="MipsSim_files/timestamp.js" charset="utf-8"></script>
+<script type="text/javascript" src="MipsSim_files/graph-calc.js" charset="utf-8"></script>
+<script type="text/javascript" src="MipsSim_files/auto-complete.js" charset="utf-8"></script>
+<script type="text/javascript" src="MipsSim_files/toolbar.js" charset="utf-8"></script>
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+.wb-autocomplete-suggestions {
+    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    position: absolute; display: none; z-index: 2147483647; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.wb-autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
+.wb-autocomplete-suggestion b { font-weight: bold; }
+.wb-autocomplete-suggestion.selected { background: #f0f0f0; }
+</style>
+<div id="wm-ipp-base" style="display: block; direction: ltr;" lang="en">
+</div><script type="text/javascript">
+__wm.bt(600,27,25,2,"web","http://www.tik.ee.ethz.ch/~gfa/MipsSim.html","2004-10-12",1996,"/_static/",['css/banner-styles.css','css/iconochive.css']);
+</script><div class="wb-autocomplete-suggestions "></div>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+
+<dl><dd>
+<dl><dd>
+<dl><dd>
+
+<h1>A MIPS R3000 Simulator in Java</h1>
+
+
+This simulator was developed mainly for testing and debugging the new <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~topsy">Topsy Operating System</a>. It
+was written by George Fankhauser and 
+has been published under GPL together with Topsy.
+<p>
+
+It has a gdb-interface using a TCP/IP connection and supports verbose commenting of processor exceptions and also a trace mode.</p><p>
+
+Here's a <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~gfa/sim/simulator.html">short report</a> explaining some details. </p><p>
+
+The simulator is a terminal application (i.e. runs in a shell) but for 
+demonstration purposes I also constructed an applet out of it (for this 
+only 2 classes were added and a few lines had to be changed). <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~topsy/sim/applet.html">Click here for the demo</a>. 
+
+Here's the soure for the demo-applet: <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~topsy/SourceTar/MipsSimulatorApplet.tar.gz">MipsSimulatorApplet.tar.gz</a>. Have a look at the makefile for information about diffs to the terminal version.
+
+<!-- ################################################################## -->
+<img src="MipsSim_files/red_bar.gif" alt="red bar">
+
+</p><h2>Packages/CVS access</h2>
+
+Source code (terminal-mode, with gdb-interface): <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~topsy/SourceTar/MipsSimulator.tar.gz">MipsSimulator.tar.gz</a>
+
+<p>
+For the latest source, try:
+</p><p>
+
+cvs -d :pserver:anonymous@drwho.ethz.ch:/usr/drwho/vault/cvs/topsy login (pw:anonymous)
+</p><p>
+cvs -d :pserver:anonymous@drwho.ethz.ch:/usr/drwho/vault/cvs/topsy checkout MipsSim
+</p><p>
+
+</p><h2>Installation</h2>
+
+<dl><dd>
+<li>Unpack the source (using gzip, gnutar or winzip)</li>
+<li>Compile the source with 'javac *.java'</li>
+</dd></dl>
+
+<h2>Usage</h2>
+
+<dl><dd>
+<li>Start the simulator with 'java Simulator [-t] [-s] [-v] [-b] [-l] kernel'</li>
+<li>Example to start a kernel named topsy.srec in big-endian configuration:<br> <b>java Simulator topsy.srec</b></li>
+<li>Use the follwing options:</li>
+</dd></dl>
+<br><br>
+
+<!--/////////////////////////////////////////////////////////////////-->
+<table border="4" bgcolor="#C0C0C0">
+<tbody><tr>
+<td>
+<dt><b>Options</b>&nbsp;</dt>
+</td>
+
+<td>
+<dt><b>Default</b></dt>
+</td>
+
+<td>
+<dt><b>Command line switch</b></dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>trace</dt>
+</td>
+
+<td>
+<dt>false</dt>
+</td>
+
+<td>
+<dt>-t tracefile</dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>symbolic trace</dt>
+</td>
+
+<td>
+<dt>false</dt>
+</td>
+
+<td>
+<dt>-s kernelsymbolfile</dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>verbose</dt>
+</td>
+
+<td>
+<dt>false</dt>
+</td>
+
+<td>
+<dt>-v</dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>addressing mode</dt>
+</td>
+
+<td>
+<dt>big endian</dt>
+</td>
+
+<td>
+<dt>-b, -l</dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>boot-rom filename</dt>
+</td>
+
+<td>
+<dt>boot.eprom</dt>
+</td>
+
+<td>
+<dt>&nbsp;</dt>
+</td>
+</tr>
+
+<tr>
+<td>
+<dt>default kernel name</dt>
+</td>
+
+<td>
+<dt>topsy</dt> 
+</td>
+
+<td>
+<dt>kernelname</dt>
+</td>
+</tr>
+</tbody></table><br>
+<!--/////////////////////////////////////////////////////////////////-->
+
+<li>If the boot ROM is not found, the simulator inserts automagically 
+instructions to jump to the kernel's start address at the processors 
+reset vector 0xbfc00000</li>
+<li>Kernel file format: S-records with S3 (load 32bit values) and S7 
+(jump to 32bit address). For more details see the gnu objcopy tool 
+(binutils) how to produce s-records.</li>
+
+<h2>gdb Support</h2>
+
+The simulator uses the same gdb-interface as Stanford's Simos does. You can grab gdb-simos from <a href="http://web.archive.org/web/20041012105224/http://www-flash.stanford.edu/~herrod/SimOS/">Stanford</a> or use my local sparc-binary of <a href="http://web.archive.org/web/20041012105224/ftp://ftp.tik.ee.ethz.ch/pub/people/gfa/gdb-simos">gdb-simos</a>
+To connect just type "gdb-simos topsy.ecoff", and then at the gdb prompt
+ "target simos host:portnumber" (e.g. target simos tardis-a3:2345)
+<br><br>
+
+<h2>Running MIPS Linux</h2>
+
+Of course, MipsSim runs Linux too. Here's what you get with a modified 2.2.13 kernel:<p>
+
+</p><pre>
+pong:/home/gfa/Topsy/MipsSim &gt; java  Simulator vmlinux.srec 
+
+MIPS R3000 (big endian) Simulator - (c) 1996-1999 gfa
+trace=false (symbolic=false), gdb=false, verbose=false
+ROM not initialized (imagefile: boot.eprom, java.io.IOException)
+java.net.NoRouteToHostException (No route to host)
+Ethertap: couldn't connect to Ethertap server.
+Loading from vmlinux.srec ...............................ok.
+
+Loading R3000 MMU routines.
+MIPS R2000/R3000, rev. 0x00000230
+Instruction cache 0kb
+Data cache 0kb
+Linux version 2.2.13 (gfa@orange7) (gcc version egcs-2.90.29 980515 (egcs-1.0.3 release)) #59 Tue Jan 18 18:00:23 MET 2000
+Calibrating delay loop... 0.82 BogoMIPS
+Memory: 3044k/4092k available (560k kernel code, 228k data)
+Checking for 'wait' instruction...  unavailable.
+POSIX conformance testing by UNIFIX
+Linux NET4.0 for Linux 2.2
+Based upon Swansea University Computer Society NET3.039
+Starting kswapd v 1.5 
+Signetics SCN2681 serial driver (gfa) 0.1
+ttyS00 at 0x000000 (irq = 4)
+ttyS01 at 0x000000 (irq = 4)
+ttyS02 at 0x000000 (irq = 4)
+ttyS03 at 0x000000 (irq = 4)
+RAM disk driver initialized:  16 RAM disks of 4096K size
+VFS: Cannot open root device 00:00
+Kernel panic: VFS: Unable to mount root fs on 00:00
+
+</pre>
+
+If you need a patch, just mail me...
+<p>
+Ok, I didn't set a RAM disk image to mount. The <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~gfa/sim/vmlinux.trace">symbolic boot trace</a> is nevertheless interesting.
+</p><p>
+Compare this to <a href="http://web.archive.org/web/20041012105224/http://www.tik.ee.ethz.ch/~topsy/examples/boot_trace.shtml">Topsy's boot trace.</a>
+</p><p>
+
+<!-- ################################################################## -->
+<img src="MipsSim_files/red_bar.gif" alt="red bar">
+
+</p><p>
+Last update Fri Jul 14 17:52:02 MET DST 2000<br>
+Copyright 1997-2000 George Fankhauser, this page is not official ETH information.
+<br>
+This page has been accessed 
+<img src="MipsSim_files/nph-count.gif">
+ times.
+</p><p>
+
+</p><p align="CENTER"><a href="http://web.archive.org/web/20041012105224/http://www.anybrowser.org/campaign"> <img src="MipsSim_files/any.gif" alt="Best Viewed With Any Browser" border="0" align="MIDDLE"></a></p>
+
+</dd></dl>
+</dd></dl>
+</dd></dl>
+
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 10:52:24 Oct 12, 2004 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 07:53:04 Jul 08, 2019.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  LoadShardBlock: 30.288 (3)
+  esindex: 0.01
+  captures_list: 47.872
+  CDXLines.iter: 12.69 (3)
+  PetaboxLoader3.datanode: 50.613 (4)
+  exclusion.robots: 0.319
+  exclusion.robots.policy: 0.308
+  RedisCDXSource: 0.652
+  PetaboxLoader3.resolve: 25.833
+  load_resource: 49.32
+-->

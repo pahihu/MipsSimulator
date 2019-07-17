@@ -1,0 +1,1293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="boot_trace_files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app42.us.archive.org';v.server_ms=267;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="boot_trace_files/ait-client-rewrite.js" charset="utf-8"></script>
+<script type="text/javascript">
+WB_wombat_Init("http://web.archive.org/web", "20041211153628", "www.tik.ee.ethz.ch:80");
+</script>
+<script type="text/javascript" src="boot_trace_files/wbhack.js" charset="utf-8"></script>
+<script type="text/javascript">
+__wbhack.init('http://web.archive.org/web');
+</script>
+<link rel="stylesheet" type="text/css" href="boot_trace_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="boot_trace_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>
+Booting Topsy 1.1
+</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script type="text/javascript" src="boot_trace_files/timestamp.js" charset="utf-8"></script>
+<script type="text/javascript" src="boot_trace_files/graph-calc.js" charset="utf-8"></script>
+<script type="text/javascript" src="boot_trace_files/auto-complete.js" charset="utf-8"></script>
+<script type="text/javascript" src="boot_trace_files/toolbar.js" charset="utf-8"></script>
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+.wb-autocomplete-suggestions {
+    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    position: absolute; display: none; z-index: 2147483647; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.wb-autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
+.wb-autocomplete-suggestion b { font-weight: bold; }
+.wb-autocomplete-suggestion.selected { background: #f0f0f0; }
+</style>
+<div id="wm-ipp-base" style="display: block; direction: ltr;" lang="en">
+</div><script type="text/javascript">
+__wm.bt(600,27,25,2,"web","http://www.tik.ee.ethz.ch/~topsy/examples/boot_trace.shtml","2004-12-11",1996,"/_static/",['css/banner-styles.css','css/iconochive.css']);
+</script><div class="wb-autocomplete-suggestions "></div>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+<!-- This file should be included at the top after the <BODY> tag -->
+<table width="100%" cellspacing="0" cellpadding="5" border="0">
+	<tbody><tr align="LEFT">
+		<td width="100" bgcolor="#000033"><p>&nbsp;</p></td>
+		<td bgcolor="#FFFFFF">
+			<h1> Topsy - A Teachable Operating System </h1> 
+		</td>
+	</tr>
+	<tr align="LEFT">
+		<td width="100" valign="TOP" bgcolor="#000033" align="LEFT"><font color="#FFFFFF">
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/index.html">Home</a></b><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/index.html#news">News</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/index.html#whatis">What is Topsy</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/index.html#links">Links</a><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/tik/education/lectures/TI2/TI2-uebungen.html">Praktikum TI2</a></b><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/sim/applet.shtml">Demo Applet</a></b><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/materials.shtml">Materials</a></b><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/materials.shtml#documentation">Documentation</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/materials.shtml#theses">Student' Theses</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/materials.shtml#examples">examples</a><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/source.shtml">Source</a></b><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/Source/">Linked Source</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/source.shtml#needed">Needed Tools</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/source.shtml#legal">Legal Status</a><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/contact.shtml">Contact</a></b><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/contact.shtml#maillist">Mailing List</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/contact.shtml#bug">Bug report</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/contact.shtml#feature">Feature request</a><br><br>
+				<b><a href="http://web.archive.org/web/20041211153628/http://junior.apk.net/~qc/osring/index.html">OS Ring</a></b><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.webring.org/cgi-bin/webring?ring=os&amp;id=1&amp;next" target="_top">Next</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.webring.org/cgi-bin/webring?ring=os;random" target="_top">Random</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.webring.org/cgi-bin/webring?ring=os&amp;id=1&amp;skip" target="_top">Skip Next</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.webring.org/cgi-bin/webring?ring=os&amp;id=1&amp;next5" target="_top">Next 5</a><br>
+					- <a href="http://web.archive.org/web/20041211153628/http://www.webring.org/cgi-bin/webring?ring=os&amp;list" target="_top">List Sites</a><br>
+		</font></td><td bgcolor="#FFFFFF">
+
+<h1>
+Booting Topsy 1.1
+</h1>
+
+This is a documented trace how the OS boots from the very start.
+<p>
+the syntax is:
+</p><p>
+
+</p><pre>address   func_1 {          // entering a function
+
+          } func_1 (cycles for func_1/cycles including recursive calls)
+
+address   &gt; func_2          // a new function, entry point (e.g., main, 
+                            // new thread, context switch etc.)
+
+address   func_3 (cycles/cycles)  // func_3 calls no other function
+                                  // no block is opened to save some lines
+</pre>
+
+The trace below was commented and manually shortened wherever I thought 
+it was boring...
+<p>
+
+The trace was generated by our Java-MIPS-Simulator. David Schweikert, 
+<a href="http://web.archive.org/web/20041211153628/mailto:schweikert@acm.org">schweikert@acm.org</a> wrote all the symbol generation code, thanks!
+</p><p>
+
+The trace is started as follows:
+</p><p>
+
+</p><pre>$ kaffe Simulator -s ../Topsy/topsy.symbols \
+                  -t /tmp/bibi \
+		           -b ../Topsy/topsy.srec
+
+this is the console output:
+======================================================================
+MIPS/IDT R3052E Simulator - (c) 1996-1998 gfa
+Configured as big endian, trace=true (symbolic=true), verbose=false
+Reading symbols from '../Topsy/topsy.symbols'
+280 symbols read.
+ROM not initialized (imagefile: boot.eprom, java.io.IOException)
+Loading from '../Topsy/topsy.srec'
+..................ok. Booting from '../Topsy/topsy.srec'
+
+Topsy 1.1 (c) 1996-1998, ETH Zurich, TIK
+($Id: boot_trace.shtml,v 1.2 1999/11/19 16:25:40 jeker Exp $)
+
+ioThread: loading 4 drivers...
+[ttya] 
+[ttyb] 
+[fpga] 
+
+Probably no real FPGA... aborting init
+[loopback] 
+
+Topsy Shell 1.1 (c) 1998, ETH Zurich, TIK
+($Id: boot_trace.shtml,v 1.2 1999/11/19 16:25:40 jeker Exp $)
+
+&gt; 
+=====================================================================
+
+here is the trace:
+
+
+Starting point of the OS
+
+800200b0 &gt; __start
+800200d8   main {
+80020008     __main (2/2)
+8002001c     initBasicExceptions {
+80022fc8       tmInstallExceptionCode {
+80025108         byteCopy (1542/1542)
+8002515c         byteCopy (966/966)
+               } tmInstallExceptionCode (32/2540)
+
+a MIPS R3000 has 32 exceptions and 8 interrupts
+	       
+80022fdc       tmSetExceptionHandler (8/8)
+.
+.
+.
+
+80022fdc       tmSetExceptionHandler (8/8)
+
+80023004       tmSetInterruptHandler (20/20)
+.
+.
+
+80023004       tmSetInterruptHandler (21/21)
+             } initBasicExceptions (334/3292)
+
+80020024     ioConsoleInit {
+800263a8       ioDelayAtLeastCycles (48/48)
+
+800263fc       ioDelayAtLeastCycles (48/48)
+             } ioConsoleInit (42/330)
+80020034     ioConsolePutString {
+80026534       ioConsolePutChar {
+800264b8         ioDelayAtLeastCycles (48/48)
+               } ioConsolePutChar (32/80)
+
+...some putChars deleted
+
+80026534       ioConsolePutChar {
+800264b8         ioDelayAtLeastCycles (48/48)
+               } ioConsolePutChar (40/88)
+             } ioConsolePutString (1030/9134)
+	     
+Memory manager inititalization
+	     
+80020048     mmInit {
+
+MM exceptions (memory faults such as bus error...)
+
+800217ac       mmInstallErrorHandlers {
+80021a98         tmSetExceptionHandler (8/8)
+80021aa4         tmSetExceptionHandler (8/8)
+80021ab0         tmSetExceptionHandler (8/8)
+80021ac0         tmSetExceptionHandler (8/8)
+80021ad4         tmSetExceptionHandler (8/8)
+80021ae0         tmSetExceptionHandler (8/8)
+80021af4         tmSetExceptionHandler (8/8)
+80021b00         tmSetExceptionHandler (8/8)
+               } mmInstallErrorHandlers (41/105)
+
+stack up the TLB to get a defined user space
+
+800217e0       mmInitMemoryMapping {
+80021948         setTLBEntry (13/13)
+
+...we have a total of 64 of these
+
+80021948         setTLBEntry (13/13)
+
+this is when the user space gets copied (what a drag!)
+
+8002196c         longCopy (38119/38119)
+80021980         longCopy (14959/14959)
+               } mmInitMemoryMapping (627/54537)
+800217f8       mmVmGetHeapAddress {
+800221d8         roundUp {
+80022ee4           roundToPageUp (6/6)
+                 } roundUp (8/14)
+               } mmVmGetHeapAddress (9/23)
+80021800       hmInit {
+80021c9c         lockInit (2/2)
+               } hmInit (25/27)
+	       
+VM module gets initialized; notice that the heap is already used
+
+80021890       mmVmInit {
+80022254         mmAddressSpaceRange (9/9)
+80022264         listNew {
+800204dc           hmAlloc {
+80021ce8             lock {
+800216e8               testAndSet (12/12)
+                     } lock (15/27)
+80021cf0             findFree (18/18)
+80021d30             split (16/16)
+80021d4c             unlock (2/2)
+                   } hmAlloc (43/106)
+                 } listNew (18/124)
+8002226c         listNew {
+800204dc           hmAlloc {
+80021ce8             lock {
+800216e8               testAndSet (12/12)
+                     } lock (15/27)
+80021cf0             findFree (26/26)
+80021d30             split (16/16)
+80021d4c             unlock (2/2)
+                   } hmAlloc (43/114)
+                 } listNew (18/132)
+80022290         roundToPageUp (5/5)
+800222b4         vmInitRegion {
+80022e48           hmAlloc {
+80021ce8             lock {
+800216e8               testAndSet (12/12)
+                     } lock (15/27)
+80021cf0             findFree (34/34)
+80021d30             split (16/16)
+80021d4c             unlock (2/2)
+                   } hmAlloc (43/122)
+80022e60           roundToPageUp (5/5)
+80022e80           listAddInFront {
+800205b8             hmAlloc {
+80021ce8               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+80021cf0               findFree (42/42)
+80021d30               split (16/16)
+80021d4c               unlock (2/2)
+                     } hmAlloc (43/130)
+                   } listAddInFront (44/174)
+                 } vmInitRegion (46/347)
+
+... many vmRegions follow here 
+(for kernel/user code/data, stacks, heap, exception stack etc.)
+
+               } mmVmInit (198/6078)
+             } mmInit (70/60840)
+	     
+Now init the Thread manager
+	     
+80020060     tmInit {
+
+create ready and blocked lists for all priority classes (2 * 3)
+
+80023068       schedulerInit {
+8002405c         lockInit (2/2)
+8002406c         listNew {
+800204dc           hmAlloc {
+
+                   } hmAlloc (43/298)
+                 } listNew (18/316)
+80024080         listNew {
+
+                 } listNew (18/324)
+8002406c         listNew {
+
+                 } listNew (18/332)
+80024080         listNew {
+
+                 } listNew (18/340)
+8002406c         listNew {
+
+                 } listNew (18/348)
+80024080         listNew {
+
+                 } listNew (18/356)
+               } schedulerInit (63/2081)
+8002307c       lockInit (2/2)
+
+threadBuild is used to bootstrap the MM and TM threads,
+later the same procedure is used to serve the tmStart syscall.
+threadBuild takes lots of arguments (about 11) which are the kernel
+and thread resources and initializes them correctly. For this reason 
+it can be used with both statically or dynamically allocated memory.
+
+800230c4       threadBuild {
+80024794         stringNCopy (90/90)
+8002479c         initMsgQueue (59/59)
+800247d0         schedulerInsert {
+80024108           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80024128           listAddInFront {
+800205b8             hmAlloc {
+80021ce8               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+80021cf0               findFree (258/258)
+80021d30               split (16/16)
+80021d4c               unlock (2/2)
+                     } hmAlloc (43/346)
+                   } listAddInFront (47/393)
+8002413c           unlock (2/2)
+                 } schedulerInsert (35/457)
+80024820         tmSetStackPointer (2/2)
+80024830         tmSetReturnAddress (2/2)
+80024848         tmSetProgramCounter (2/2)
+80024858         tmSetFramePointer (2/2)
+80024870         tmSetArgument0 (2/2)
+80024880         tmSetStatusRegister (2/2)
+80024890         enableAllInterruptsInContext (5/5)
+800248a8         byteCopy (166/166)
+800248c8         byteCopy (358/358)
+               } threadBuild (141/1288)
+
+now TM...
+
+80023104       threadBuild {
+80024794         stringNCopy (90/90)
+8002479c         initMsgQueue (59/59)
+800247d0         schedulerInsert {
+80024108           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80024128           listAddInFront {
+800205b8             hmAlloc {
+80021ce8               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+80021cf0               findFree (266/266)
+80021d30               split (16/16)
+80021d4c               unlock (2/2)
+                     } hmAlloc (43/354)
+                   } listAddInFront (48/402)
+8002413c           unlock (2/2)
+                 } schedulerInsert (35/466)
+80024820         tmSetStackPointer (2/2)
+80024830         tmSetReturnAddress (2/2)
+80024848         tmSetProgramCounter (2/2)
+80024858         tmSetFramePointer (2/2)
+80024870         tmSetArgument0 (2/2)
+80024880         tmSetStatusRegister (2/2)
+80024890         enableAllInterruptsInContext (5/5)
+800248a8         byteCopy (166/166)
+800248c8         byteCopy (358/358)
+               } threadBuild (141/1297)
+	       
+this is the global lookup table to find threads by tid very fast
+	       
+8002310c       hashListNew {
+80020128         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (274/274)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/362)
+               } hashListNew (86/448)
+80023128       hashListAdd {
+80020244         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (282/282)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/370)
+80020258         hashFunction (11/11)
+80020278         hashFunction (11/11)
+               } hashListAdd (46/438)
+80023144       hashListAdd {
+80020244         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (290/290)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/378)
+80020258         hashFunction (11/11)
+80020278         hashFunction (11/11)
+               } hashListAdd (46/446)
+	       
+this is the 'normal' linked thread list (e.g. used to enumerate threads)
+	       
+8002314c       listNew {
+800204dc         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (298/298)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/386)
+               } listNew (18/404)
+80023164       listAddInFront {
+800205b8         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (306/306)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/394)
+               } listAddInFront (44/438)
+8002317c       listAddInFront {
+800205b8         hmAlloc {
+80021ce8           lock {
+800216e8             testAndSet (12/12)
+                   } lock (15/27)
+80021cf0           findFree (314/314)
+80021d30           split (16/16)
+80021d4c           unlock (2/2)
+                 } hmAlloc (43/402)
+               } listAddInFront (45/447)
+	       
+install TM exception handlers (overflow div-by-zero, etc.)
+	       
+80023184       tmInstallErrorHandlers {
+80025330         tmSetExceptionHandler (8/8)
+80025340         tmSetExceptionHandler (8/8)
+80025354         tmSetInterruptHandler (20/20)
+80025364         tmSetExceptionHandler (8/8)
+80025374         tmSetExceptionHandler (8/8)
+80025384         tmSetExceptionHandler (8/8)
+80025394         tmSetExceptionHandler (8/8)
+               } tmInstallErrorHandlers (36/104)
+
+set scheduler status for MM and TM
+
+8002318c       schedulerSetReady {
+80024290         lock {
+800216e8           testAndSet (12/12)
+                 } lock (15/27)
+800242c4         listSwap {
+80020954           removeElem (19/19)
+                 } listSwap (43/62)
+800242dc         unlock (2/2)
+               } schedulerSetReady (46/137)
+80023194       schedulerSetReady {
+80024290         lock {
+800216e8           testAndSet (12/12)
+                 } lock (15/27)
+800242c4         listSwap {
+80020954           removeElem (15/15)
+                 } listSwap (42/57)
+800242dc         unlock (2/2)
+               } schedulerSetReady (46/132)
+	       
+pick one of them
+	       
+8002319c       schedule {
+800243f0         lockTry {
+80021724           testAndSet (12/12)
+                 } lockTry (9/21)
+8002440c         unlock (2/2)
+80024420         lockTry {
+80021724           testAndSet (12/12)
+                 } lockTry (9/21)
+8002443c         unlock (2/2)
+8002447c         listMoveToEnd (38/38)
+800244a0         listGetFirst (15/15)
+800244b8         ipcResetPendingFlag (2/2)
+               } schedule (74/175)
+
+init the system clock
+
+800231ac       setClockValue {
+8002597c         ioDelayAtLeastCycles (48/48)
+8002599c         ioDelayAtLeastCycles (48/48)
+800259c0         ioDelayAtLeastCycles (48/48)
+80025a4c         ioDelayAtLeastCycles (48/48)
+80025a6c         ioDelayAtLeastCycles (48/48)
+80025a90         ioDelayAtLeastCycles (48/48)
+               } setClockValue (108/396)
+	       
+this is the point where interrupts are enabled and the system is fully
+initialized. however, the kernel servers might need some more things to do 
+before everything is ready for service. so far we have burnt about 70'000 
+cycles from which were most spent on some silly copy ops. 
+	       
+800231f8       restoreContext {
+
+ok, so we see now that MM was picked by the scheduler to run first
+
+80021fb0 &gt;       mmMain
+80021fe8         tmMsgRecv {
+
+MM is fully initialized and waits for work...
+
+800000c0           saveContext (57/57)
+80000108           syscallExceptionHandler {
+800256bc             msgDispatcher {
+80023a88               hashListGet {
+8002036c                 hashFunction (11/11)
+                       } hashListGet (35/46)
+80023b84               hashListGet {
+8002036c                 hashFunction (11/11)
+                       } hashListGet (29/40)
+80023bc4               kRecv {
+8002399c                 getMessageFromQueue (45/45)
+                       } kRecv (30/75)
+80023be0               schedulerSetBlocked {
+8002434c                 lock {
+800216e8                   testAndSet (12/12)
+                         } lock (15/27)
+80024380                 listSwap {
+80020954                   removeElem (15/15)
+                         } listSwap (43/58)
+80024394                 unlock (2/2)
+                       } schedulerSetBlocked (48/135)
+80023be8               schedule {
+800243f0                 lockTry {
+80021724                   testAndSet (12/12)
+                         } lockTry (9/21)
+8002440c                 unlock (2/2)
+80024420                 lockTry {
+80021724                   testAndSet (12/12)
+                         } lockTry (9/21)
+8002443c                 unlock (2/2)
+800244a0                 listGetFirst (15/15)
+800244b8                 ipcResetPendingFlag (2/2)
+                       } schedule (61/124)
+80023c04               tmSetReturnValue (2/2)
+                     } msgDispatcher (73/495)
+                   } syscallExceptionHandler (29/524)
+800255b4 &gt;         restoreContext
+
+TM is next...
+
+80023c50 &gt;         tmMain
+
+TM does a little more before it serves syscalls. 
+It has to start the Idle, IO, User (shell) threads first...
+
+80023c90           threadStart {
+
+allocate kernel resources first
+
+80024ae8             hmAlloc {
+80021ce8               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+80021cf0               findFree (322/322)
+80021d30               split (16/16)
+80021d4c               unlock (2/2)
+                     } hmAlloc (43/410)
+		     
+the kernel uses the same simple syscall as everybody does, 
+e.g. vmAlloc to get a stack for the new thread
+
+80024b2c             vmAlloc {
+80020c84               genericSyscall {
+80020c10                 tmMsgSend {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+800256bc                     msgDispatcher {
+
+                             } msgDispatcher (58/558)
+                           } syscallExceptionHandler (29/587)
+800255b4 &gt;                 restoreContext
+                         } tmMsgSend (109/753)
+
+here, MM runs to service TM's vmAlloc syscall
+
+80022064                 mmVmAlloc {
+80022568                   roundToPageUp (5/5)
+80022578                   listGetFirst (15/15)
+800225a8                   vmAllocRegion {
+80022d0c                     hmAlloc {
+80021ce8                       lock {
+800216e8                         testAndSet (12/12)
+                               } lock (15/27)
+80021cf0                       findFree (330/330)
+80021d30                       split (16/16)
+80021d4c                       unlock (2/2)
+                             } hmAlloc (43/418)
+80022d58                     listAddInFront {
+800205b8                       hmAlloc {
+80021ce8                         lock {
+800216e8                           testAndSet (12/12)
+                                 } lock (15/27)
+80021cf0                         findFree (338/338)
+80021d30                         split (16/16)
+80021d4c                         unlock (2/2)
+                               } hmAlloc (43/426)
+                             } listAddInFront (45/471)
+                           } vmAllocRegion (70/959)
+                         } mmVmAlloc (55/1034)
+
+this is the syscall reply...
+			 
+80022084                 tmMsgSend {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+800256bc                     msgDispatcher {
+
+                             } msgDispatcher (58/499)
+                           } syscallExceptionHandler (29/528)
+800255b4 &gt;                 restoreContext
+                         } tmMsgSend (106/691)
+80020c30                 tmMsgRecv {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+800256bc                     msgDispatcher {
+
+                             } msgDispatcher (63/334)
+                           } syscallExceptionHandler (29/363)
+800255b4 &gt;                 restoreContext
+                         } tmMsgRecv (114/534)
+                       } genericSyscall (52/3064)
+                     } vmAlloc (28/3092)
+		     
+vmAlloc completed, now get an id for the new thread
+		     
+80024b74             getThreadId {
+80024598               hashListGet {
+8002036c                 hashFunction (11/11)
+                       } hashListGet (29/40)
+                     } getThreadId (43/83)
+		     
+add thread to kernel lists, synchronize access to them first
+		     
+80024b90             lock {
+800216e8               testAndSet (12/12)
+                     } lock (15/27)
+80024bbc             hashListAdd {
+80020244               hmAlloc {
+80021ce8                 lock {
+800216e8                   testAndSet (12/12)
+                         } lock (15/27)
+80021cf0                 findFree (346/346)
+80021d30                 split (16/16)
+80021d4c                 unlock (2/2)
+                       } hmAlloc (43/434)
+80020258               hashFunction (11/11)
+80020278               hashFunction (11/11)
+                     } hashListAdd (46/502)
+80024be8             listAddInFront {
+800205b8               hmAlloc {
+80021ce8                 lock {
+800216e8                   testAndSet (12/12)
+                         } lock (15/27)
+80021cf0                 findFree (354/354)
+80021d30                 split (16/16)
+80021d4c                 unlock (2/2)
+                       } hmAlloc (43/442)
+                     } listAddInFront (45/487)
+80024c74             unlock (2/2)
+
+no use the same function as was used to build MM and TM to build 
+a thread from the collected resources
+
+80024d30             threadBuild {
+80024794               stringNCopy (90/90)
+8002479c               initMsgQueue (59/59)
+800247d0               schedulerInsert {
+80024108                 lock {
+800216e8                   testAndSet (12/12)
+                         } lock (15/27)
+80024128                 listAddInFront {
+800205b8                   hmAlloc {
+80021ce8                     lock {
+800216e8                       testAndSet (12/12)
+                             } lock (15/27)
+80021cf0                     findFree (362/362)
+80021d30                     split (16/16)
+80021d4c                     unlock (2/2)
+                           } hmAlloc (43/450)
+                         } listAddInFront (47/497)
+8002413c                 unlock (2/2)
+                       } schedulerInsert (35/561)
+80024820               tmSetStackPointer (2/2)
+80024830               tmSetReturnAddress (2/2)
+80024848               tmSetProgramCounter (2/2)
+80024858               tmSetFramePointer (2/2)
+80024870               tmSetArgument0 (2/2)
+80024880               tmSetStatusRegister (2/2)
+80024890               enableAllInterruptsInContext (5/5)
+800248a8               byteCopy (166/166)
+800248c8               byteCopy (358/358)
+                     } threadBuild (141/1392)
+80024d40             schedulerSetReady {
+80024290               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+800242c4               listSwap {
+80020954                 removeElem (15/15)
+                       } listSwap (42/57)
+800242dc               unlock (2/2)
+                     } schedulerSetReady (46/132)
+                   } threadStart (120/6247)
+
+So one thread was started, now do the next one...
+		   
+80023cdc           threadStart {
+80024ae8             hmAlloc {
+80021ce8               lock {
+800216e8                 testAndSet (12/12)
+                       } lock (15/27)
+80021cf0               findFree (370/370)
+80021d30               split (16/16)
+80021d4c               unlock (2/2)
+                     } hmAlloc (43/458)
+80024b2c             vmAlloc {
+80020c84               genericSyscall {
+80020c10                 tmMsgSend {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+800256bc                     msgDispatcher {
+80023a88                       hashListGet {
+8002036c                         hashFunction (11/11)
+                               } hashListGet (35/46)
+80023b2c                       kSend {
+800237ec                         hashListGet {
+8002036c                           hashFunction (11/11)
+                                 } hashListGet (35/46)
+80023928                         addMessageInQueue {
+800234bc                           longCopy (47/47)
+                                 } addMessageInQueue (79/126)
+80023940                         schedule {
+800243f0                           lockTry {
+80021724                             testAndSet (12/12)
+                                   } lockTry (9/21)
+8002440c                           unlock (2/2)
+80024420                           lockTry {
+80021724                             testAndSet (12/12)
+                                   } lockTry (9/21)
+8002443c                           unlock (2/2)
+8002447c                           listMoveToEnd (39/39)
+800244a0                           listGetFirst (15/15)
+800244b8                           ipcResetPendingFlag (2/2)
+                                 } schedule (74/176)
+                               } kSend (46/394)
+80023c04                       tmSetReturnValue (2/2)
+                             } msgDispatcher (58/500)
+                           } syscallExceptionHandler (29/529)
+800255b4 &gt;                 restoreContext
+
+the newly built thread above was IO which happens to be scheduled here...
+
+80025cd0 &gt;                 ioMain
+80025ce0                   hashListNew {
+80020128                     hmAlloc {
+80021ce8                       lock {
+800216e8                         testAndSet (12/12)
+                               } lock (15/27)
+80021cf0                       findFree (378/378)
+80021d30                       split (16/16)
+80021d4c                       unlock (2/2)
+                             } hmAlloc (43/466)
+                           } hashListNew (86/552)
+80025cf8                   ioConsolePutString {
+                           } ioConsolePutString (200/1640)
+80025d00                   ioConsolePutInt {
+                           } ioConsolePutInt (60/140)
+80025d10                   ioConsolePutString {
+                           } ioConsolePutString (140/1108)
+80025d34                   ioConsolePutString {
+                           } ioConsolePutString (30/110)
+80025d4c                   ioConsolePutString {
+                           } ioConsolePutString (60/380)
+80025d5c                   ioConsolePutString {
+                           } ioConsolePutString (40/200)
+80025d6c                   ioConsolePutString {
+                           } ioConsolePutString (30/118)
+			   
+init ttya
+			   
+80025d8c                   devSCN2681_init {
+800268c4                     ioDelayAtLeastCycles (4008/4008)
+
+80026944                     hmAlloc {
+
+                             } hmAlloc (43/474)
+80026950                     hmAlloc {
+
+                             } hmAlloc (43/482)
+                           } devSCN2681_init (70/9322)
+80025d34                   ioConsolePutString {
+
+                           } ioConsolePutString (30/110)
+
+init ttyb
+
+80025d8c                   devSCN2681_init {
+
+                           } devSCN2681_init (71/9355)
+
+init FPGA
+
+80025d8c                   devFPGA_init {
+80026e18                     hmAlloc {
+
+                             } hmAlloc (43/506)
+80026e24                     hmAlloc {
+
+                             } hmAlloc (43/514)
+80026e2c                     InitLinkBOARD {
+
+                             } InitLinkBOARD (33/3669)
+                           } devFPGA_init (29/4718)
+
+init loopback
+
+80025d8c                   devLoopback_init {
+800273c0                     hmAlloc {
+
+                             } hmAlloc (43/522)
+800273cc                     hmAlloc {
+
+                             } hmAlloc (43/530)
+                           } devLoopback_init (30/1082)
+			   
+start drivers
+			   
+80025db8                   ioLoadDriver {
+80025f50                     tmSetInterruptHandler (20/20)
+80025f6c                     tmStart {
+80020e78                       genericSyscall {
+80020c10                         tmMsgSend {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+800256bc                             msgDispatcher {
+80023a88                               hashListGet {
+8002036c                                 hashFunction (11/11)
+                                       } hashListGet (35/46)
+80023b2c                               kSend {
+800237ec                                 hashListGet {
+8002036c                                   hashFunction (11/11)
+                                         } hashListGet (35/46)
+80023928                                 addMessageInQueue {
+800234bc                                   longCopy (47/47)
+                                         } addMessageInQueue (79/126)
+80023940                                 schedule {
+800243f0                                   lockTry {
+80021724                                     testAndSet (12/12)
+                                           } lockTry (9/21)
+8002440c                                   unlock (2/2)
+80024420                                   lockTry {
+80021724                                     testAndSet (12/12)
+                                           } lockTry (9/21)
+8002443c                                   unlock (2/2)
+8002447c                                   listMoveToEnd (38/38)
+800244a0                                   listGetFirst (15/15)
+800244b8                                   ipcResetPendingFlag (2/2)
+                                         } schedule (74/175)
+                                       } kSend (46/393)
+80023c04                               tmSetReturnValue (2/2)
+                                     } msgDispatcher (58/499)
+                                   } syscallExceptionHandler (29/528)
+800255b4 &gt;                         restoreContext
+
+context switch, who's next, MM serving TM...
+
+                                 } tmMsgSend (106/691)
+80021fe8                         tmMsgRecv {
+
+                                 } tmMsgRecv (114/524)
+80022064                         mmVmAlloc {
+
+                                 } mmVmAlloc (55/1274)
+				 
+syscall reply
+				 
+80022084                         tmMsgSend {
+
+                                 } tmMsgSend (106/697)
+				 
+TM running
+				 
+80020c30                         tmMsgRecv {
+
+                                 } tmMsgRecv (114/574)
+                               } genericSyscall (60/3820)
+                             } tmStart (31/3851)
+80024b74                     getThreadId {
+
+                             } getThreadId (40/80)
+
+constructing a user thread involves moving memory...
+ 
+80024c94                     vmMove {
+80020d58                       genericSyscall {
+80020c10                         tmMsgSend {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+
+                                   } syscallExceptionHandler (29/528)
+800255b4 &gt;                         restoreContext
+                                 } tmMsgSend (106/691)
+80020c30                         tmMsgRecv {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+
+                                   } syscallExceptionHandler (29/526)
+800255b4 &gt;                         restoreContext
+                                 } tmMsgRecv (111/694)
+80021fe8                         tmMsgRecv {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+
+                                   } syscallExceptionHandler (29/353)
+800255b4 &gt;                         restoreContext
+                                 } tmMsgRecv (114/524)
+80022124                         mmVmMove {
+8002276c                           getRegion {
+80022b20                             listGetFirst (15/15)
+80022b44                             isPageInRegion (10/10)
+                                   } getRegion (53/78)
+8002278c                           mmVmAlloc {
+80022568                             roundToPageUp (5/5)
+80022578                             listGetFirst (15/15)
+800225a8                             vmAllocRegion {
+80022d0c                               hmAlloc {
+80021ce8                                 lock {
+800216e8                                   testAndSet (12/12)
+                                         } lock (15/27)
+80021cf0                                 findFree (482/482)
+80021d30                                 split (16/16)
+80021d4c                                 unlock (2/2)
+                                       } hmAlloc (43/570)
+80022d58                               listAddInFront {
+800205b8                                 hmAlloc {
+80021ce8                                   lock {
+800216e8                                     testAndSet (12/12)
+                                           } lock (15/27)
+80021cf0                                   findFree (490/490)
+80021d30                                   split (16/16)
+80021d4c                                   unlock (2/2)
+                                         } hmAlloc (43/578)
+                                       } listAddInFront (45/623)
+                                     } vmAllocRegion (70/1263)
+                                   } mmVmAlloc (55/1338)
+80022808                           mmMovePage {
+80021a08                             longCopy (519/519)
+80021a14                             zeroOut (1286/1286)
+                                   } mmMovePage (19/1824)
+80022808                           mmMovePage {
+80021a08                             longCopy (519/519)
+80021a14                             zeroOut (1286/1286)
+                                   } mmMovePage (19/1824)
+80022808                           mmMovePage {
+80021a08                             longCopy (519/519)
+80021a14                             zeroOut (1286/1286)
+                                   } mmMovePage (19/1824)
+80022808                           mmMovePage {
+80021a08                             longCopy (519/519)
+80021a14                             zeroOut (1286/1286)
+                                   } mmMovePage (19/1824)
+80022834                           mmVmFree {
+80022624                             getRegion {
+80022b20                               listGetFirst (15/15)
+80022b44                               isPageInRegion (10/10)
+                                     } getRegion (53/78)
+800226c4                             vmFreeRegion {
+80022c54                               listRemove {
+80020808                                 hmFree {
+80021e18                                   lock {
+800216e8                                     testAndSet (12/12)
+                                           } lock (15/27)
+80021e60                                   unlock (2/2)
+                                         } hmFree (374/403)
+                                       } listRemove (38/441)
+80022c64                               listAddInFront {
+800205b8                                 hmAlloc {
+80021ce8                                   lock {
+800216e8                                     testAndSet (12/12)
+                                           } lock (15/27)
+80021cf0                                   findFree (458/458)
+80021d30                                   split (10/10)
+80021d4c                                   unlock (2/2)
+                                         } hmAlloc (43/540)
+                                       } listAddInFront (45/585)
+80022c7c                               mmUnmapPages (2/2)
+                                     } vmFreeRegion (44/1072)
+                                   } mmVmFree (41/1191)
+                                 } mmVmMove (105/10008)
+8002214c                         tmMsgSend {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+
+                                   } syscallExceptionHandler (29/534)
+800255b4 &gt;                         restoreContext
+                                 } tmMsgSend (106/697)
+80020c30                         tmMsgRecv {
+800000c0                           saveContext (57/57)
+80000108                           syscallExceptionHandler {
+
+                                   } syscallExceptionHandler (29/403)
+800255b4 &gt;                         restoreContext
+                                 } tmMsgRecv (114/574)
+                               } genericSyscall (72/13260)
+                             } vmMove (31/13291)
+
+vmMove completed for user thread... (TM starting the shell)
+ 
+80024d30                     threadBuild {
+
+                             } threadBuild (139/1496)
+80024d40                     schedulerSetReady {
+
+                             } schedulerSetReady (46/133)
+                           } ioLoadDriver (119/20248)
+80023d30                   threadStart {
+
+                           } threadStart (116/3852)
+80023d88                   tmMsgRecv {
+800000c0                     saveContext (57/57)
+80000108                     syscallExceptionHandler {
+
+                             } syscallExceptionHandler (29/353)
+800255b4 &gt;                   restoreContext
+                           } tmMsgRecv (114/524)
+80023dec                   threadStart {
+
+                           } threadStart (120/7611)
+80023e1c                   tmMsgSend {
+800000c0                     saveContext (57/57)
+80000108                     syscallExceptionHandler {
+
+                             } syscallExceptionHandler (29/644)
+800255b4 &gt;                   restoreContext
+                           } tmMsgSend (109/810)
+                         } tmMsgSend (320/65460)
+                       } genericSyscall (22/65482)
+80025fb8               hashListAdd {
+80020244                 hmAlloc {
+80021ce8                   lock {
+800216e8                     testAndSet (12/12)
+                           } lock (15/27)
+80021cf0                   findFree (570/570)
+80021d30                   split (16/16)
+80021d4c                   unlock (2/2)
+                         } hmAlloc (43/658)
+80020258                 hashFunction (11/11)
+80020278                 hashFunction (11/11)
+                       } hashListAdd (46/726)
+                     } vmAlloc (32/66240)
+80025db8             ioLoadDriver {
+80025f6c               tmStart {
+
+                       } tmStart (35/12787)
+80025db8               ioLoadDriver {
+80025f50                 tmSetInterruptHandler (20/20)
+80025f6c                 tmStart {
+
+                       } tmStart (39/13218)
+80025db8               ioLoadDriver {
+80025f6c                 tmStart {
+
+driver threads start running now (asynchronously)...
+
+800260b4 &gt;                     ioDeviceMain
+80026100                       tmMsgRecv {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/523)
+800255b4 &gt;                       restoreContext
+                               } tmMsgRecv (111/691)
+80021fe8                       tmMsgRecv {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/523)
+800255b4 &gt;                       restoreContext
+                               } tmMsgRecv (111/691)
+80023d88                       tmMsgRecv {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/353)
+800255b4 &gt;                       restoreContext
+                               } tmMsgRecv (114/524)
+			       
+...ioLoadDriver continues
+
+80023dec                       threadStart {
+
+                             } threadStart (250/11831)
+80023e1c                     tmMsgSend {
+800000c0                       saveContext (57/57)
+80000108                       syscallExceptionHandler {
+
+                               } syscallExceptionHandler (29/644)
+800255b4 &gt;                     restoreContext
+                             } tmMsgSend (109/810)
+                           } tmMsgSend (24/12665)
+                         } genericSyscall (32/12697)
+80025fb8                 hashListAdd {
+
+                         } hashListAdd (46/894)
+                       } tmStart (35/13626)
+80025dec               tmMsgRecv {
+800000c0                 saveContext (57/57)
+80000108                 syscallExceptionHandler {
+
+                         } syscallExceptionHandler (29/523)
+800255b4 &gt;               restoreContext
+
+
+A new driver thread is scheduled
+
+800260b4 &gt;               ioDeviceMain
+80026100                 tmMsgRecv {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+800256bc                     msgDispatcher {
+80023a88                       hashListGet {
+8002036c                         hashFunction (11/11)
+                               } hashListGet (35/46)
+80023b84                       hashListGet {
+8002036c                         hashFunction (11/11)
+                               } hashListGet (29/40)
+80023bc4                       kRecv {
+8002399c                         getMessageFromQueue (45/45)
+                               } kRecv (30/75)
+80023be0                       schedulerSetBlocked {
+8002434c                         lock {
+800216e8                           testAndSet (12/12)
+                                 } lock (15/27)
+80024380                         listSwap {
+80020954                           removeElem (15/15)
+                                 } listSwap (42/57)
+80024394                         unlock (2/2)
+                               } schedulerSetBlocked (48/134)
+80023be8                       schedule {
+800243f0                         lockTry {
+80021724                           testAndSet (12/12)
+                                 } lockTry (9/21)
+8002440c                         unlock (2/2)
+80024420                         lockTry {
+80021724                           testAndSet (12/12)
+                                 } lockTry (9/21)
+8002443c                         unlock (2/2)
+800244a0                         listGetFirst (15/15)
+800244b8                         ipcResetPendingFlag (2/2)
+                               } schedule (61/124)
+80023c04                       tmSetReturnValue (2/2)
+                             } msgDispatcher (73/494)
+                           } syscallExceptionHandler (29/523)
+800255b4 &gt;                 restoreContext
+                         } tmMsgRecv (111/691)
+80021fe8                 tmMsgRecv {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+
+                           } syscallExceptionHandler (29/523)
+800255b4 &gt;                 restoreContext
+                         } tmMsgRecv (111/691)
+80023d88                 tmMsgRecv {
+800000c0                   saveContext (57/57)
+80000108                   syscallExceptionHandler {
+
+                           } syscallExceptionHandler (29/551)
+800255b4 &gt;                 restoreContext
+
+
+The kernel is all idle and the first user thread gets a chance to run
+ 
+000046c4 &gt;                 main
+000046dc                   __main (2/2)
+
+and, it starts by syscalling...
+
+000046ec                   ioOpen {
+000057f4                     genericSyscall {
+00005300                       tmMsgSend {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/593)
+800255b4 &gt;                       restoreContext
+                               } tmMsgSend (109/759)
+80025e44                       hashListGet {
+8002036c                         hashFunction (11/11)
+                               } hashListGet (35/46)
+80025e7c                       tmMsgSend {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/506)
+800255b4 &gt;                       restoreContext
+                               } tmMsgSend (106/669)
+80025dec                       tmMsgRecv {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/551)
+800255b4 &gt;                       restoreContext
+                               } tmMsgRecv (111/719)
+00005320                       tmMsgRecv {
+800000c0                         saveContext (57/57)
+80000108                         syscallExceptionHandler {
+
+                                 } syscallExceptionHandler (29/363)
+800255b4 &gt;                       restoreContext
+                               } tmMsgRecv (114/534)
+                             } genericSyscall (58/2785)
+                           } ioOpen (28/2813)
+			   
+00004710                   ioInit {
+
+800262c4                       devSCN2681_init {
+                               } devSCN2681_init (59/8355)
+
+                           } ioInit (20/11109)
+			   
+00004734                   ioWrite {
+
+
+etc...                  
+
+</pre>
+
+<hr>
+
+<h1><a href="http://web.archive.org/web/20041211153628/http://www.tik.ee.ethz.ch/~topsy/">Topsy - A Teachable Operating System Home Page</a></h1>
+
+<!-- This file should be included at the end before the </BODY> tag -->
+<hr>
+<center>
+This page has been accessed 234
+ times.<br>
+<font size="-3">
+
+Last modification: Fri Nov 19 1999<br>
+copyright by ETH Zürich</font>
+</center>
+</td>
+</tr></tbody></table>
+
+
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 15:36:28 Dec 11, 2004 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 08:03:23 Jul 08, 2019.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  LoadShardBlock: 31.979 (3)
+  esindex: 0.013
+  captures_list: 105.396
+  CDXLines.iter: 16.412 (3)
+  PetaboxLoader3.datanode: 62.015 (4)
+  exclusion.robots: 0.488
+  exclusion.robots.policy: 0.468
+  RedisCDXSource: 0.862
+  PetaboxLoader3.resolve: 39.484
+  load_resource: 124.66
+-->

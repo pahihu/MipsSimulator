@@ -1,0 +1,263 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="simulator_files/analytics.js" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app102.us.archive.org';v.server_ms=838;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="simulator_files/ait-client-rewrite.js" charset="utf-8"></script>
+<script type="text/javascript">
+WB_wombat_Init("http://web.archive.org/web", "20040718223805", "www.tik.ee.ethz.ch:80");
+</script>
+<script type="text/javascript" src="simulator_files/wbhack.js" charset="utf-8"></script>
+<script type="text/javascript">
+__wbhack.init('http://web.archive.org/web');
+</script>
+<link rel="stylesheet" type="text/css" href="simulator_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" href="simulator_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>A MIPS R3000 Simulator</title>
+
+<meta name="GENERATOR" content="Internet Assistant for Microsoft Word 2.0z">
+</head>
+<p>
+<i><font size="6" color="#000000">A MIPS R3000 Simulator</font></i>
+</p><p>
+<i><font size="2" color="#000000">George Fankhauser </font></i>
+</p><p>
+<i><font size="1" color="#000000">Computer Engineering and Networks
+Laboratory, ETH Z<i>ürich</i></font></i>
+</p><p>
+<i><b><font size="2" color="#000000">This report describes the design
+and implementation of a MIPS R3000 simulator implemented on top
+of the Java Virtual Machine. It served as a development platform
+for the small micro kernel operating system Topsy.<br>
+</font></b></i>
+</p><p>
+<i><font size="4" color="#000000">1. INTRODUCTION</font></i>
+</p><hr>
+<p>
+<font size="2" color="#000000">Developing and debugging a new operating
+system on hardware is a time consuming and tedious job. Having
+a virtual machine that emulates the actual hardware on top of
+a stable system (e.g. Unix) is a great help. Although a simulator
+is slower than the actual hardware (unless it runs on a fast host
+that compensates for the cost of simulation), start-up and download
+times are usually shorter and general development progress is
+accelerated. In addition kernel debugging is easier since the
+debugger or communication stub does not run on the same machine.While
+developing Topsy, a small micro kernel for teaching purposes,
+the presented simulator has been developed. Since performance
+was not an issue, portability and reliability were favored and
+the MIPS virtual machine was setup on top of the Java virtual
+machine.</font></p><p><font size="2" color="#000000">
+
+<img src="simulator_files/sim-arch.gif"></font>
+
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">FIGURE 1. </font><font size="2" face="Times" color="#000000">The
+Mips R3000 Simulator running on the top of the Java Virtual Machine</font></b>
+</p><hr>
+<p>
+<i><font size="4" color="#000000">2. HARDWARE MODEL</font></i>
+</p><hr>
+<p>
+<font size="2" color="#000000">Design of the Java-based MIPS-simulator
+centers around three modules:</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">1. </font></b><font size="2" face="Times" color="#000000">Processor,
+coprocessor and instructions</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">2. </font></b><font size="2" face="Times" color="#000000">Memory
+(RAM, ROM) and memory mapped devices</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">3. </font></b><font size="2" face="Times" color="#000000">
+Exceptions
+and interrupts
+</font></p><p><font size="2" face="Times" color="#000000">
+All these concepts are modeled as Java classes or
+hierarchies of classes. In addition, a few classes are concerned
+with I/O features (the simulator runs as a terminal applications
+or as a demo-applet in a browser).</font>
+</p><p>
+<i><font size="1" color="#000000">Processor, coprocessor and instructions</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">
+The
+MIPS machine with its memory management unit (known as coprocessor
+0) uses a class Instruction which decodes MIPS II ISA binary 32-bit
+instructions and allows the processors interpreter to handle parts
+like displacement, registers and opcodes on a high level.</font>
+</p><p>
+<i><font size="1" color="#000000">Memory and devices</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">
+A
+basic class models a generic memory region from byte <i>n</i>
+to <i>n+k-1</i> and allows it to check for interrupts if a device
+is mapped into that area.</font><font size="2" color="#000000">Subclasses
+that model RAM, ROM, an UART for serial IO (Scignetics SCN2681)
+and a real-time clock (intel 8254) overwrite the basic read/write
+methods in order to provide their services. All memory accesses
+are like the hardware model bi-endian. A command line switch selects
+the endian-ness on startup. Another class (Memory) is responsible
+for the selection of the correct memory device. If no device was
+mapped to the requested address a bus error is generated.</font>
+</p><p>
+<i><font size="1" color="#000000">Exceptions and interrupts</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">
+Exceptions
+(which also include interrupts on the MIPS architecture) are directly
+translated to Java-exceptions and were a <i>major simplification</i>
+of the simulator. While interpreting instructions on the MIPS
+virtual machine, one must be prepared to throw exceptions at very
+different locations (e.g. virtual memory translations, physical
+memory access, decoding coprocessor opcodes, checking hardware
+interrupts). Being able to use exceptions in Java allows the MIPS
+interpreter to regain control after such conditions.<br>
+<br>
+</font>
+</p><p>
+<i><font size="4" color="#000000">3. DEBUGGER SUPPORT</font></i>
+</p><hr>
+<p>
+<font size="2" color="#000000">The simulator class ëDebuggerí
+supports the symbolic remote debugging of the kernel or user program
+running on the simulator. It supports the standard gdb-protocol
+which includes</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">1. </font></b><font size="2" face="Times" color="#000000">Register
+read/write</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">2. </font></b><font size="2" face="Times" color="#000000">Memory
+read/write</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">3. </font></b><font size="2" face="Times" color="#000000">Interrupting
+the running target</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">4. </font></b><font size="2" face="Times" color="#000000">Single
+stepping</font>
+</p><p>
+<b><font size="1" face="Helvetica" color="#000000">5. </font></b><font size="2" face="Times" color="#000000">Continuing
+or detaching the target
+</font></p><p><font size="2" face="Times" color="#000000">
+Using these basic building blocks, all
+gdb-functions become available (symbolic debugging etc.).</font><font size="2" color="#000000">The
+debugger stub in the simulator runs as its own thread and accepts
+new TCP connections from an instance of gdb running somewhere
+on the net. The simulator yields control to the debugger every
+instruction to allow lowest latency connections.The processor
+model treats the debugger stub like an ordinary hardware device
+that may generate interrupts. In addition, the MIPS BREAK instruction
+is handled not like an exception but is directly interpreted and
+sets the debugger state to ëstoppedí. Unlike a kernel
+debugger on real hardware, this has the advantage that it leaves
+the machine state untouched after the BREAK.To use the debugger
+you need to install a cross-mips gdb with the simos target for
+your machine. The source and certain pre-compiled binaries are
+available from http://powderkeg.stanford.edu/. The gdb-stub inside
+the simulator listens on port 2345.<br>
+<br>
+</font>
+</p><p>
+<i><font size="4" color="#000000">4. USAGE</font></i>
+</p><hr>
+<p>
+<font size="2" color="#000000">The MIPS simulator needs a kernel file
+in S-record fromat as an input. Only S3 (32-bit addressed data)
+and S7 (32-bit transfer address) are supported. Optionally, three
+flags (-b, -v, -t) control the endian-mode (big/little, little
+is default), a verbose and a trace mode.Verbose mode prints on
+all exceptions the cause of the exception and the current program
+counter and instruction in disassembled format.The trace mode
+prints each instruction that is executed. Larger traces take time
+but may be useful (e.g. the Topsy OS executes about 250í000
+instructions until the first user program is loaded).</font><i><font size="2" color="#000000">
+</font></i></p><p><i><font size="2" color="#000000">
+Example</font></i><font size="2" color="#000000">:
+java Simulator -b -v topsy.srec
+</font></p><p><font size="2" color="#000000">
+loads the MIPS s-record code in
+the file topsy.srec, addresses memory in bi-endian mode and prints
+all exceptions verbosely to standard output.<i>Note</i>: Compilers
+like gcc are able to generate directly s-records. Tools like objcopy
+may convert ecoff or a.out to s-records.<br>
+</font>
+</p><p>
+<i><font size="4" color="#000000">5. KERNEL LOADER</font></i>
+</p><hr>
+<p>
+<font size="2" color="#000000">The original hardware features a loader
+for Motorola S-records which is built into an EPROM and loads
+a kernel via serial interface (or TFTP on boards with ethernet).
+On the simulator, the loader is a Java method that interprets
+S-records from a hostfile. While the original could also be used
+as a loader for the simulator, the direct approach implemented
+here is faster and less cumbersome.</font>
+</p><p>
+<i><font size="1" color="#000000">EPROM</font></i><font size="2" face="Times" color="#000000">
+</font></p><p><font size="2" face="Times" color="#000000">
+Bypassing
+the code in the EPROM is controlled by the presence of an image
+file to load into ROM. If the file is not present, the ROM is
+initialized with an absolute jump to the starting address specified
+in the kernel file (S7-record). In either way, execution starts
+at the reset vector of the CPU (0xbfc00000 virtual).</font>
+</p><p>
+<i><font size="4" color="#000000">6. LIMITATIONS</font></i>
+</p><hr>
+This chapter describes the limitations and differences regarding
+the IDT385 evaluation board.
+<p>
+<i><font size="1">Pipeline</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">No
+instruction pipeline has been implemented. Instructions are executed
+sequentially, but pipeline characteristics like branch delay slots
+and load delays are built in to ensure compatibility to the original.</font>
+</p><p>
+<i><font size="1" color="#000000">Speed</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">Running
+the simulator on top of another interpreted machine (Java VM)
+makes the MIPS machine quite slow. I used it with kaffe (a just-in-time
+compiler) on a Pentium 133MHz and was very happy with the performance.</font>
+</p><p>
+<i><font size="1" color="#000000">FPU</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">Coprocessor
+1 is not implemented.</font>
+</p><p>
+<i><font size="1" color="#000000">UART</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">Not
+all features of the Scignetics SCN2681 controller are implemented
+(e.g. timers, transmission speed). However, the same driver that
+controls the original hardware is able to drive the simulated
+device with identical results.</font>
+</p><p>
+<i><font size="1" color="#000000">Clock</font></i><font size="2" face="Times" color="#000000"></font></p><p><font size="2" face="Times" color="#000000">The
+clock is not driven by its own crystal as on the IDT board. It
+runs at the same frequency as the CPU. This leads to a different
+task switching behaviour on the simulator and of course, the programmed
+real time is not correct. The advantage however, is the predictability:
+If you start a kernel and observe a time critical error (race
+condition) you can reproduce it accurately next time the simulator
+is booted.<br>
+<br>
+</font>
+
+
+
+
+
+</p><p align="CENTER"><a href="http://web.archive.org/web/20040718223805/http://www.anybrowser.org/campaign"> <img src="simulator_files/any.html" alt="Best Viewed With Any Browser" border="0" align="MIDDLE"></a></p>
+
+
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 22:38:05 Jul 18, 2004 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 07:53:12 Jul 08, 2019.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  LoadShardBlock: 238.786 (3)
+  esindex: 0.009
+  captures_list: 256.413
+  CDXLines.iter: 13.143 (3)
+  PetaboxLoader3.datanode: 323.266 (4)
+  exclusion.robots: 0.3
+  exclusion.robots.policy: 0.285
+  RedisCDXSource: 0.627
+  PetaboxLoader3.resolve: 423.18 (2)
+  load_resource: 571.497
+-->

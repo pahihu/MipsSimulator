@@ -2,24 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/KernelLoader.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/RAM.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/CoProc0.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/MemoryRegion.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/ROM.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Simulator.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Memory.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/AddressErrorLoadException.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/CPRegUnavailableException.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Debugger.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/ClockErrorException.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/MemoryException.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Instruction.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/AddressErrorStoreException.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Clock.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/UART.java</file>
-            <file>file:/Users/Pahi/NetBeansProjects/MipsSimulator/src/mipssimulator/Processor.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
