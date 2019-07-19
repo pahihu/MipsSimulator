@@ -69,25 +69,36 @@ public class UART extends MemoryRegion {
 	// read
 	byte readByte(int address) throws BusErrorException {
 		int offset = address-from;
-		
+                byte data = 0;
+                
 		if (offset == STATUS_REGISTER) {
 		    // simulator is always ready to send...
-		    return (byte)(memory[STATUS_REGISTER] | READY_TO_SEND); 
+		    data = (byte)(memory[STATUS_REGISTER] | READY_TO_SEND); 
 		}
 		else if (offset == RX_REGISTER) {
 		    memory[STATUS_REGISTER] &= ~RECV_MASK; // clear status
 //System.out.println("rx read out: '0x" + Integer.toHexString(memory[RX_REGISTER]) + "");
-		    return memory[RX_REGISTER];
+		    data = memory[RX_REGISTER];
 		}
 		else if (offset == MODE_REGISTER) {
-		    return memory[MODE_REGISTER];
+		    data = memory[MODE_REGISTER];
 		}
-		return 0;
+                if (Simulator.debugMode) {
+                    System.out.println("UART read: 0x" + Integer.toHexString(address) 
+                            + " [0x" + Integer.toHexString(offset) + 
+                            "] = " + Integer.toHexString(data));
+                    System.out.flush();
+                }
+		return data;
 	}
 	
 	void writeByte(int address, byte data) throws BusErrorException {	
 	    int offset = address-from;
 	    
+            if (Simulator.debugMode) {
+                System.out.println("UART write: 0x" + Integer.toHexString(address) + " = " + Integer.toHexString(data));
+                System.out.flush();
+            }
 	    super.writeByte(address, data);
 	    if (offset == TX_REGISTER) {
 		System.out.write(data);

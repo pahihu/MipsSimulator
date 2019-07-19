@@ -178,14 +178,22 @@ public class CoProc0 extends Object {
     }	
 
     public int getRegister(int no) throws CPRegUnavailableException {
+        int data = 0;
         switch (no) {
             case STATUS: case EPC: case CAUSE: case TLBHI: case TLBLO:
             case INDEX: case CONTEXT: case BADVA: case PRID:
-                    return register[no];
+                    data = register[no];
+                    break;
             case RANDOM:
-                    return (randomIndex() << 8);
+                    data = (randomIndex() << 8);
+                    break;
             default: throw new CPRegUnavailableException("r" + no);
         }
+        if (Simulator.debugMode) {
+            System.out.println("CoProc0 read: " + no + " = 0x" + Integer.toHexString(data));
+            System.out.flush();
+        }
+        return data;
     }
 
     public void putRegister(int no, int data) throws CPRegUnavailableException 
@@ -261,8 +269,10 @@ public class CoProc0 extends Object {
                 phys = virt-0xa0000000;
             }
         }
-        if (Simulator.debugMode)
+        if (Simulator.debugMode) {
             System.out.println("translate: " + toHex8(virt) + " => " + toHex8(phys) + (write ? " W" : ""));
+            System.out.flush();
+        }
         return phys;
     }
     

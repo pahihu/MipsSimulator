@@ -188,7 +188,7 @@ public class Instruction {
             "s0", "s1", "s2", "s3",
             "s4", "s5", "s6", "s7",
             "t8", "t9", "k0", "k1",
-            "gp", "sp", "fp", "ra"
+            "gp", "sp", "s8", "ra"
         };
 	
 	public int value;
@@ -277,6 +277,8 @@ public class Instruction {
 			case OP_SLT: case OP_SLTU: case OP_SUB: case OP_SUBU: case OP_XOR:
 				if (rd == 0) 
 					s = "NOP"; // writing to r0 is a NOP
+                                else if (opCode == OP_ADDU && rt == 0)
+                                        s = "MOVE   " + regNames[rd] + ", " + regNames[rs];
 				else
 					s = s + regNames[rd] + ", " + regNames[rs] + ", " + regNames[rt];
 				break;				
@@ -290,6 +292,8 @@ public class Instruction {
 			case OP_SLTI: case OP_SLTIU:case OP_XORI:
 				if (rt == 0) 
 					s = "NOP"; // writing to r0 is a NOP
+                                else if (opCode == OP_ADDIU && rs == 0)
+                                        s = "LI     " + regNames[rt] + ", 0x" + toHex4(0xffff & extra) + " # " + extra;
                                 else
 					s = s + regNames[rt] + ", " + regNames[rs] + ", 0x" + toHex4(0xffff & extra) + " # " + extra;
 				break;
@@ -309,7 +313,10 @@ public class Instruction {
 				s = s + regNames[rs] + ", 0x" + toHex8(pc + extra*4);
 				break;
 			case OP_BEQ: case OP_BNE:
-				s = s + regNames[rs] + ", " + regNames[rt] + ", 0x" + toHex8(pc + extra*4);
+                                if (opCode == OP_BEQ && rs == 0 && rt == 0)
+                                    s = "B      0x" + toHex8(pc + extra*4);
+                                else
+                                    s = s + regNames[rs] + ", " + regNames[rt] + ", 0x" + toHex8(pc + extra*4);
 				break;			
 			case OP_LUI:
 				s = s + regNames[rt] + ", 0x" + toHex4(0xffff & extra);
